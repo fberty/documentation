@@ -41,7 +41,7 @@ Please wait for Core Devs to release official Chiado images before attempting to
 | Finalization Time | 2.7 min      |
 | Staking Deposit   | 1 Chiado-GNO |
 
-## Native Tokens
+## Tokens
 
 ### Fee Token
 
