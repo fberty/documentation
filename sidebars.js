@@ -194,20 +194,63 @@ const sidebars = {
 
   node: [
     'node/README',
-    'node/incentives',
+    'node/Why Run a Node',
+    'node/Ways to Stake',
+    'node/Technical Requirements',
     {
       type: 'category',
-      label: 'Validator Guide',
+      label: 'Quick Start-Easy Setup',
       collapsed: false,
-      link: {type: 'doc', id: 'node/get-started'},
+      link: {type: 'doc', id: 'node/quickstart'},
       items: [
-        "node/consensus-layer-validator",
-        "node/execution-layer-validator",
-        "node/validator-deposits",
-        "node/validator-withdrawls",
-        "node/migrating-a-validator",
-        "node/monitoring-nodes",
-        "node/voluntary-exit",
+        "node/dAppNode",
+        "node/Nethermind Sedge",
+        "node/Community Resources",
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Advanced',
+      collapsed: false,
+      link: {type: 'doc', id: 'node/advanced'},
+      items: [
+        "node/Firewall",
+        "node/Prerequisite Software",
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Execution Layer',
+      collapsed: false,
+      link: {type: 'doc', id: 'node/execution-layer'},
+      items: [
+        "node/execution-layer/Nethermind",
+        "node/execution-layer/GETH",
+        "node/execution-layer/Besu",
+        "node/execution-layer/Erigon",
+        "node/execution-layer/Open Ethereum",
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Consensus Layer',
+      collapsed: false,
+      link: {type: 'doc', id: 'node/consensus-layer'},
+      items: [
+        "node/consensus-layer/Lighthouse",
+        "node/consensus-layer/Lodestar",
+        "node/consensus-layer/Teku",
+        "node/consensus-layer/Nimbus",
+        "node/consensus-layer/Prysm",
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Validator Keys',
+      collapsed: true,
+      items: [
+        "node/validator-keys/Generating Validator Keys",
+        "node/validator-keys/Deposit",
       ],
     },
     /*{
@@ -221,6 +264,19 @@ const sidebars = {
         
       ],
     },*/
+    'node/Merge Migration',
+    {
+      type: 'category',
+      label: 'After Setup',
+      collapsed: false,
+      items: [
+        "node/monitor",
+        "node/update",
+        "node/migrate",
+        "node/exit",
+        "node/withdraw",
+      ],
+    },
     {
       type: 'link',
       label: 'Landing Page',
