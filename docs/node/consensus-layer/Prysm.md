@@ -9,7 +9,7 @@
 The[ Prysm](https://github.com/prysmaticlabs/prysm) project is a Go implementation of the Ethereum protocols consensus layer, by [prysmaticlabs]([https://prysmaticlabs.com/](https://prysmaticlabs.com/)) 
 
 This project builds a customized version of the prysm client with Gnosischain modifications.
-Repository: [https://github.com/gnosischain/prysm-client](https://github.com/gnosischain/prysm-client) 
+[Repository](https://github.com/gnosischain/prysm-client) 
 
 
 ## Option 1: with docker

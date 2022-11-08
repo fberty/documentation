@@ -10,7 +10,7 @@
 An Ethereum consensus client by [chainsafe]([https://lodestar.chainsafe.io/](https://lodestar.chainsafe.io/)) 
 
 This project builds a customized version of the lodestar client with Gnosischain modifications.
-Repository: [https://github.com/gnosischain/lodestar-client](https://github.com/gnosischain/lodestar-client) 
+[Repository](https://github.com/gnosischain/lodestar-client) 
 
 
 ## Option 1: with docker

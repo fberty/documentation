@@ -63,7 +63,8 @@ nethermind --config chiado --JsonRpc.JwtSecretFile=<PATH to jwt.hex>
 
 ```
 cd
-mkdir /home/<USER>/nethermind
+mkdir /home/<USER>/gnosis
+mkdir /home/<user>/gnosis/execution-client
 ```
 
 
@@ -80,66 +81,65 @@ openssl rand -hex 32 | sudo tee /var/lib/jwtsecret/jwt.hex > /dev/null
 **Create Docker-compose file**
 
 ```
-cd nethermind
-nano /home/<USER>/nethermind/docker-compose.yml
+cd gnosis
+nano /home/<USER>/gnosis/docker-compose.yml
 ```
 
 **Paste the following**
 
 
 ```
-version: "3.7"
+version: "3.9"
 services:
-
-  nethermind:
-    hostname: nethermind
-    container_name: nethermind
-    image: nethermindeth/nethermind:latest
+  execution:
+    stop_grace_period: 30s
+    container_name: execution-client
     restart: always
-    stop_grace_period: 1m
+    image: nethermind/nethermind:latest
     networks:
-      net:
-        ipv4_address: 192.168.32.100
-    ports:
-      - "30303:30303/tcp" # p2p
-      - "30303:30303/udp" # p2p
-      - "8551:8551/tcp"
+    - gnosischain
     volumes:
-      - /home/<USER>/nethermind/data:/nethermind/data
-      - /home/<USER>/nethermind/keystore:/nethermind/keystore
-      - /home/<USER>/nethermind/logs:/nethermind/logs
-      - /var/lib/jwtsecret/jwt.hex:/var/lib/jwtsecret/jwt.hex
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
-    environment:
-      - NETHERMIND_CONFIG=<chiado or xdai>
-      - NETHERMIND_JSONRPCCONFIG_ENABLED=true
-      - NETHERMIND_JSONRPCCONFIG_HOST=192.168.32.100
-      - NETHERMIND_JSONRPCCONFIG_PORT=8545
-      - NETHERMIND_JSONRPCCONFIG_JWTSECRETFILE=/var/lib/jwtsecret/jwt.hex
-      - NETHERMIND_JSONRPCCONFIG_ENGINEHOST=192.168.32.100
-      - NETHERMIND_JSONRPCCONFIG_ENGINEPORT=8551
-      - NETHERMIND_NETWORKCONFIG_DISCOVERYPORT=30303
-      - NETHERMIND_NETWORKCONFIG_P2PPORT=30303
-      - NETHERMIND_MERGECONFIG_ENABLED=true
-	Command:
-      --datadir=/data
+    - /home/<user>/gnosis/execution-data:/execution-data/data
+    - /home/<user>/gnosis/jwtsecret:/<path-to>/jwtsecret
+    - /etc/timezone:/etc/timezone:ro
+    - /etc/localtime:/etc/localtime:ro
+    ports:
+    - 30303:30303/tcp
+    - 30303:30303/udp
+    expose:
+    - 8545
+    - 8551
+    command:
+    - --config=xdai
+    - --datadir=/execution-data/data
+    - --log=INFO
+    - --Sync.SnapSync=false
+    - --JsonRpc.Enabled=true
+    - --JsonRpc.Host=0.0.0.0
+    - --JsonRpc.Port=8545
+    - --JsonRpc.EnabledModules=[Web3,Eth,Subscribe,Net,]
+    - --JsonRpc.JwtSecretFile=/jwtsecret
+    - --JsonRpc.EngineHost=0.0.0.0
+    - --JsonRpc.EnginePort=8551
+    - --Network.DiscoveryPort=30303
+    - --HealthChecks.Enabled=false
+    - --Pruning.CacheMb=2048
     logging:
-      driver: json-file 
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "10"
 networks:
-  net:
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.168.32.0/24
+  gnosischain:
+    name: gnosischain_network
 ```
 
 **Start the EL container and check logs**
 
 ```
-cd nethermind
-sudo docker-compose up -d
-sudo docker-compose logs nethermind -f
+cd gnosis
+sudo docker-compose up -d execution-client
+sudo docker-compose logs -f execution-client 
 ```
 
 ## Nethermind Archival Node
@@ -152,6 +152,10 @@ Make sure there's enough disk space to accommodate the archive data, the minimum
 
 Select Network: `xdai_archive`
 
+```
+--config=xdai_archive
+```
+
 Set the Following variable 
 ```
 NETHERMIND_PRUNINGCONFIG_MODE: "None"
@@ -160,6 +164,5 @@ NETHERMIND_PRUNINGCONFIG_MODE: "None"
 In docker-compose 
 ```
 	environment:
-  	- NETHERMIND_CONFIG=xdai_archive
     - NETHERMIND_PRUNINGCONFIG_MODE: "None"
 ```
