@@ -28,6 +28,8 @@ keywords: [Gnosis, Chain, Crypto, Ethereum, DAOHaus, Gnosis Safe, Colony, LexDAO
 
 * [LexDAO](https://www.lexdao.coop/): The decentralized legal engineering guild
 
+* [Kleros](https://kleros.io/): A decentralized arbitration service for the disputes of the new economy
+
 ## DeFi
 
 * [Gnosis Safe](https://gnosis-safe.io/): The most trusted platform to manage digital assets on Ethereum
